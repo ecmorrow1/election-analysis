@@ -19,6 +19,9 @@ total_votes = 0
 # Identify the candidates
 candidates = []
 
+# Dictionary for counting candidate votes
+candidate_votes = {}
+
 # Open the election results and read the file.
 with open(file_to_load) as election_data:
     # Read the file object with the reader function.
@@ -34,10 +37,18 @@ with open(file_to_load) as election_data:
 
         # add candidate name to candidates list
         if candidate_name not in candidates:
+
+            # add candidates to the list of candidates as they appear
             candidates.append(candidate_name)
+
+            # Begin tracking votes for the candidate
+            candidate_votes[candidate_name] = 0
+
+        # Add a vote to the candidate's count
+        candidate_votes[candidate_name] += 1
 
 # Display total votes
 # print(total_votes)
-print (candidates)
+print(candidate_votes)
 
 election_data.close()
