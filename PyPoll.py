@@ -16,6 +16,9 @@ file_to_save = os.path.join("analysis", "election_analysis.txt")
 # counter for total votes
 total_votes = 0
 
+# Identify the candidates
+candidates = []
+
 # Open the election results and read the file.
 with open(file_to_load) as election_data:
     # Read the file object with the reader function.
@@ -27,8 +30,14 @@ with open(file_to_load) as election_data:
     for row in file_reader:
         # Sum total votes
         total_votes += 1
+        candidate_name = row[2]
+
+        # add candidate name to candidates list
+        if candidate_name not in candidates:
+            candidates.append(candidate_name)
 
 # Display total votes
-print(total_votes)
+# print(total_votes)
+print (candidates)
 
 election_data.close()
