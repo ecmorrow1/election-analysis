@@ -22,6 +22,12 @@ candidates = []
 # Dictionary for counting candidate votes
 candidate_votes = {}
 
+# variables for determining the winner
+winner = ""
+winning_count = 0
+winning_percentage = 0
+
+
 # Open the election results and read the file.
 with open(file_to_load) as election_data:
     # Read the file object with the reader function.
@@ -47,8 +53,39 @@ with open(file_to_load) as election_data:
         # Add a vote to the candidate's count
         candidate_votes[candidate_name] += 1
 
+# Calculate percentage of total votes for each candidate by iterating through the candidate list
+for candidate_name in candidate_votes:
+    
+    # get the total vote count
+    votes = candidate_votes[candidate_name]
+
+    # Determine the percentage of votes
+    vote_percentage = float(votes)/float(total_votes)*100
+    # vote_percentage = "{:.1f}".format(float(votes)/float(total_votes)*100)
+
+    # Print the candidate name and their percentage of the votes
+    print(f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")
+
+    # Determine the winner
+    if (votes > winning_count) and (vote_percentage > winning_percentage):
+        # Set a new winner
+        winner = candidate_name
+        # set a new winning count
+        winning_count = votes
+        # set a new winning percentage
+        winning_percentage = vote_percentage
+
 # Display total votes
 # print(total_votes)
-print(candidate_votes)
+# print(candidate_votes)
+# print(f"{winner} won the election with {winning_count:,} votes making up {winning_percentage:.1f}% of the vote.")
+
+winning_candidate_summary = (
+    f"-------------------------\n"
+    f"Winner: {winner}\n"
+    f"Winning Vote Count: {winning_count:,}\n"
+    f"Winning Percentage: {winning_percentage:.1f}%\n"
+    f"-------------------------\n")
+print(winning_candidate_summary)
 
 election_data.close()
